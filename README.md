@@ -53,19 +53,77 @@ dependencies {
 
 ```
 
-
 # sdk 使用
+#### 主要数据结构说明
+###### 登录绑定回调
+```java
+public class LoginModel {
+    //sdk 用户 id
+    private String uid;
+    //sdk 用户 token
+    private String token;
+    LoginModel(String uid, String token) {
+        this.uid = uid;
+        this.token = token;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+}
+```
+###### 支付回调
+```java
+public class PayModel {
+    private final String orderId;//订单 id
+    private final String cpOrderId;// cp 订单 id
+    private final String thirdOrderId;// 三方订单 id/不一定有
+    private final String purchaseToken;// 三方购买凭证
+    private final int payMethod;// 支付方式/预留字段/默认 0
+    PayModel(String orderId, String cpOrderId, String thirdOrderId, String purchaseToken, int payMethod){
+        this.orderId = orderId;
+        this.cpOrderId = cpOrderId;
+        this.thirdOrderId = thirdOrderId;
+        this.purchaseToken = purchaseToken;
+        this.payMethod = payMethod;
+    }
+
+    public String getPurchaseToken() {
+        return purchaseToken;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public String getCpOrderId() {
+        return cpOrderId;
+    }
+
+    public String getThirdOrderId() {
+        return thirdOrderId;
+    }
+
+    public int getPayMethod() {
+        return payMethod;
+    }
+}
+```
 #### 初始化
 ```java
 ZAWSDK.getInstance().init(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, afDevKey, Google登录的webClientId, new ResultCallback<Void>() {
 			@Override
 			public void onSuccess(Void var1) {
-                //初始化成功后调用 quicklogin 实现静默登录
+                		//初始化成功后调用 quicklogin 实现静默登录
 				ZAWSDK.getInstance().quickLogin(MainActivity.this, new ResultCallback<LoginModel>() {
 					@Override
 					public void onSuccess(LoginModel var1) {
 						Log.v("SDK", "登录成功");
-//						Log.v("SDK", "token" + var1.getToken());
+						Log.v("SDK", "token" + var1.getToken());
 					}
 
 					@Override
@@ -155,19 +213,7 @@ ZAWSDK.getInstance().updateRoleInfo(sdk的用户id, 服务器 id, 服务器名�
 
 						@Override
 						public void onSuccess(UserRoleInfo data) {
-							// TODO Auto-generated method stub
-							if (data != null) {
-								boolean result = data.getResult();
-								String msg = data.getMsg();
-								String uid = data.getUid();
-								String role_name = data.getRole_name();
-								String role_id = data.getRole_id();
-								String role_level = data.getRole_level();
-								Log.i("kk", "更新角色信息结果:" + result + "|msg" + msg
-										+ "|role_name" + role_name + "|" + role_level
-										+ "|role_id" + role_id + "|uid" + uid);
 
-							}
 						}
 
 						@Override
