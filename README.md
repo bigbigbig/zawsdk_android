@@ -15,11 +15,38 @@ plugins {
     id 'com.google.gms.google-services'
 }
 ```
-#### facebook配置
-在 `app` module `AndroidManifest.xml` 文件中添加 facebook 参数
+#### Facebook配置
+在 `app` module `AndroidManifest.xml` 文件中添加 Facebook 参数
 ```xml
 <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+```
+在 `application` 元素中，为 Facebook 添加活动，并为 Chrome 自定义选项卡添加活动和意向筛选条件
+```xml
+    <activity android:name="com.facebook.FacebookActivity"
+        android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        android:label="@string/app_name" />
+    <activity
+        android:name="com.facebook.CustomTabActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="@string/fb_login_protocol_scheme" />
+        </intent-filter>
+    </activity>
+```
+将 ContentProvider 添加至 AndroidManifest.xml 文件，并将 {APP_ID} 设置为您的应用编号
+```xml
+<provider android:authorities="com.facebook.app.FacebookContentProvider{APP_ID}"
+android:name="com.facebook.FacebookContentProvider"
+android:exported="true"/>
+```
+如果您的应用程序面向 Android 11 或更高版本，请向 AndroidManifest.xml 文件添加以下查询块，以使 Facebook 应用对您的应用可见：
+```xml
+<queries><provider android:authorities="com.facebook.katana.provider.PlatformProvider" /></queries>
 ```
 #### sdk安装 
 在 根目录`setting.gradle` 文件中添加 maven 源
