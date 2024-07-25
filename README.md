@@ -55,16 +55,25 @@ dependencies {
 
 # sdk 使用
 #### 主要数据结构说明
+###### 登录类型
+```java
+    public static int FACEBOOK = 1;
+    public static int GOOGLE = 2;
+    public static int GUEST = 4;
+```
 ###### 登录绑定回调
 ```java
 public class LoginModel {
-    //sdk 用户 id
     private String uid;
-    //sdk 用户 token
     private String token;
-    LoginModel(String uid, String token) {
+    private int loginType;//账户首次登录类型
+    private int bindType;//账户绑定类型
+
+    LoginModel(String uid, String token, int loginType, int bindType) {
         this.uid = uid;
         this.token = token;
+        this.loginType = loginType;
+        this.bindType = bindType;
     }
 
     public String getUid() {
@@ -73,6 +82,14 @@ public class LoginModel {
 
     public String getToken() {
         return token;
+    }
+
+    public int getLoginType() {
+        return loginType;
+    }
+
+    public int getBindType() {
+        return bindType;
     }
 }
 ```
