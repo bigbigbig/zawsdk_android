@@ -23,20 +23,20 @@ plugins {
 ```
 在 `application` 元素中，为 Facebook 添加活动，并为 Chrome 自定义选项卡添加活动和意向筛选条件
 ```xml
-    <activity android:name="com.facebook.FacebookActivity"
-        android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-        android:label="@string/app_name" />
-    <activity
-        android:name="com.facebook.CustomTabActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="@string/fb_login_protocol_scheme" />
-        </intent-filter>
-    </activity>
+<activity android:name="com.facebook.FacebookActivity"
+android:configChanges=
+	"keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+android:label="@string/app_name" />
+<activity
+android:name="com.facebook.CustomTabActivity"
+android:exported="true">
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="@string/fb_login_protocol_scheme" />
+</intent-filter>
+</activity>
 ```
 将 ContentProvider 添加至 AndroidManifest.xml 文件，并将 {APP_ID} 设置为您的应用编号
 ```xml
