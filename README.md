@@ -257,3 +257,8 @@ ZAWSDK.getInstance().payGoogle(MainActivity.this, 金额, 服务器 id,  商品�
             }
         });
 ```
+
+#### facebook 分享
+```java
+ZAWSDK.shareFacebook(this, "xxx");
+```
