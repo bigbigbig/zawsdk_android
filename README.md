@@ -88,6 +88,10 @@ dependencies {
     public static int GOOGLE = 2;
     public static int GUEST = 4;
 ```
+###### 游客登录绑定条件
+```
+只有bindType是0且loginType是4的情况需要绑定
+```
 ###### 登录绑定回调
 ```java
 public class LoginModel {
