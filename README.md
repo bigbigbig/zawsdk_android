@@ -1,4 +1,5 @@
 # zawsdk_android
+[![Latest release](https://img.shields.io/github/v/release/bigbigbig/zawsdk_android)](https://github.com/bigbigbig/zawsdk_android/releases/latest)
 
 ## Install sdk
 #### google配置
