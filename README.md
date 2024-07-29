@@ -75,6 +75,7 @@ dependencyResolutionManagement {
 ```
 在 `app` module 下的 `build.gradle` 中添加sdk依赖
 ```groovy
+//latest_release 替换为Readme顶部的版本号，不用带字母v
 dependencies {
     implementation 'com.zawsdk:zawsdk_android:latest_release'
 }
