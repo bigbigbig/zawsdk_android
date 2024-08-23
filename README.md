@@ -212,7 +212,7 @@ public class PayModel {
 #### 其他
 #### 支付和界面回调的基础
 一定别忘了加上，否则支付和界面登录在前端无法收到回调
-```
+```java
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
@@ -222,6 +222,8 @@ public class PayModel {
     }
 ```
 #### 初始化
+>注意:版本 0.3.9 开始，init 方法的第一个参数需要传入 application 对象，
+>在 activity 中，我们可以直接使用 `getApplication()`方法获得这个对象
 ```java
 ZAWSDK.getInstance().init(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, afDevKey, Google登录的webClientId, new ResultCallback<Void>() {
 			@Override
@@ -347,6 +349,24 @@ ZAWSDK.getInstance().payGoogle(MainActivity.this, 金额, 服务器 id,  商品�
                 Log.i("SDK", "onFailure:");
             }
         });
+```
+
+#### 接入方自定义事件上报
+>付费事件不需要接入方上报，如果接入方有某些想上报的自定义事件，可以通过该方法上报
+###### Adjust
+> 版本0.3.9开始支持Adjust
+```java
+ZAWSDK.getInstance().adLogEvent("xxx");
+//充值事件 cp 不需上报，此接口仅为预留
+ZAWSDK.getInstance().adLogRevenueEvent("xxx", 1.0, "USD");
+```
+###### Appsflyer
+> 版本0.3.9开始不再使用Appsflyer
+```java
+Map<String, Object> eventValues = new HashMap<String, Object>();
+eventValues.put(AFInAppEventParameterName.PRICE, 1234.56);
+eventValues.put(AFInAppEventParameterName.CONTENT_ID,"1234567");
+ZAWSDK.getInstance().afLogEvent(this, "xxx", eventValues);
 ```
 
 #### facebook 分享
