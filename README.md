@@ -225,7 +225,7 @@ public class PayModel {
 >注意:版本 0.3.9 开始，init 方法的第一个参数需要传入 application 对象，
 >在 activity 中，我们可以直接使用 `getApplication()`方法获得这个对象
 ```java
-ZAWSDK.getInstance().init(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, afDevKey, Google登录的webClientId, new ResultCallback<Void>() {
+ZAWSDK.getInstance().init(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, mmpKey, Google登录的webClientId, new ResultCallback<Void>() {
 			@Override
 			public void onSuccess(Void var1) {
                 		//初始化成功后调用 quicklogin 实现静默登录
