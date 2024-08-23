@@ -209,6 +209,18 @@ public class PayModel {
     }
 }
 ```
+#### 其他
+#### 支付和界面回调的基础
+一定别忘了加上，否则支付和界面登录在前端无法收到回调
+```
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        ZAWSDK.getInstance().onActivityResult(requestCode, resultCode,
+                data);
+    }
+```
 #### 初始化
 ```java
 ZAWSDK.getInstance().init(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, afDevKey, Google登录的webClientId, new ResultCallback<Void>() {
