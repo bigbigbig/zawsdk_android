@@ -222,10 +222,13 @@ public class PayModel {
     }
 ```
 #### 初始化
->注意:版本 0.3.9 开始，init 方法的第一个参数需要传入 application 对象，
->在 activity 中，我们可以直接使用 `getApplication()`方法获得这个对象
+在自定义的 application 的 onCreate 方法中调用 sdk 的 onCreate 方法
 ```java
-ZAWSDK.getInstance().init(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, mmpKey, Google登录的webClientId, new ResultCallback<Void>() {
+ZAWSDK.getInstance().onCreate(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, mmp_key, Google登录的webClientId);
+```
+在activity 中调用 sdk 的 init 方法
+```java
+ZAWSDK.getInstance().init(this, new ResultCallback<Void>() {
 			@Override
 			public void onSuccess(Void var1) {
                 		//初始化成功后调用 quicklogin 实现静默登录
@@ -249,6 +252,35 @@ ZAWSDK.getInstance().init(this, 渠道号, 项目 id, 授权 key, 你的隐私�
 			}
 		});
 ```
+#### 如何自定义application
+创建类`GlobalApplication`继承`Application`, 实现它的`onCreate`方法
+```java
+public class GlobalApplication extends Application {
+
+    private String appid = "x";
+    private String appkey = "xxxxxxxxxxxxx";
+    private String channel = "xxxxx";
+    private String mmp_key = "xxxxxxxxxxx";
+    private String policy_url = "https://xxxx.com";
+    private String google_web_client_id = "xxxxxxxxx-xxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com";
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ZAWSDK.getInstance().onCreate(this, channel, appid, appkey, policy_url, mmp_key, google_web_client_id);
+    }
+}
+```
+在 `app/src/main/AndroidManifest.xml` 文件中 找到 `<application` 标签
+在标签下添加 `android:name`属性，设置属性值为`xxx.xxx.xxx.xxx.GlobalApplication`,其中`xxx.xxx.xxx.xxx`为类`GlobalApplication`所属的包名
+```xml
+ <application
+        android:name="xxx.xxx.xxx.xxx.GlobalApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+```
+
+
 
 #### 快速登录
 ```java
