@@ -418,5 +418,5 @@ ZAWSDK.getInstance().afLogEvent(this, "xxx", eventValues);
 
 #### facebook 分享
 ```java
-ZAWSDK.shareFacebook(this, "xxx");
+ZAWSDK.shareFacebook(this, null, "xxx");
 ```
