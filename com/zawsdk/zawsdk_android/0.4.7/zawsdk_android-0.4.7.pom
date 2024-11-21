@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.zawsdk</groupId>
   <artifactId>zawsdk_android</artifactId>
-  <version>0.4.6</version>
+  <version>0.4.7</version>
   <packaging>aar</packaging>
   <dependencies>
     <dependency>
