@@ -313,6 +313,21 @@ ZAWSDK.getInstance().quickLogin(MainActivity.this, new ResultCallback<LoginModel
 				}
 			});
 ```
+#### 切换账号
+```java
+			ZAWSDK.getInstance().account(MainActivity.this, new ResultCallback<LoginModel>() {
+				@Override
+				public void onSuccess(LoginModel var1) {
+					Log.v("SDK", "account 登录成功");
+					Log.v("SDK", "token" + var1.getToken());
+				}
+
+				@Override
+				public void onFailure(int code, String var1) {
+
+				}
+			});
+```
 #### 界面登录
 ```java
 //该方法会拉起登录界面
