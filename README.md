@@ -315,7 +315,12 @@ ZAWSDK.getInstance().quickLogin(MainActivity.this, new ResultCallback<LoginModel
 ```
 #### 切换账号
 ```java
-			ZAWSDK.getInstance().account(MainActivity.this, new ResultCallback<LoginModel>() {
+ZAWSDK.getInstance().account(MainActivity.this, new SwitchAccountCallback() {
+				@Override
+				public void didSwitchAccount() {
+					Log.v("SDK", "切换账号点击");
+				}
+			}, new ResultCallback<LoginModel>() {
 				@Override
 				public void onSuccess(LoginModel var1) {
 					Log.v("SDK", "account 登录成功");
