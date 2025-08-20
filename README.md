@@ -92,6 +92,11 @@ dependencyResolutionManagement {
                 "VKIDRedirectScheme" : "vk{vk_app_id}"
         ]
     }
+
+	compileOptions {
+	        coreLibraryDesugaringEnabled true
+	        ...
+	    }
 ```
 demo
 ```groovy
@@ -104,6 +109,7 @@ manifestPlaceholders = [
 ```
 在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
 ```
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     implementation 'com.zawsdk:zawsdk_vk_android:0.6.3'
 ```
 
