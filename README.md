@@ -290,32 +290,6 @@ public class PayModel {
 ```java
 ZAWSDK.getInstance().onCreate(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, mmp_key, Google登录的webClientId);
 ```
-在activity 中调用 sdk 的 init 方法
-```java
-ZAWSDK.getInstance().init(this, new ResultCallback<Void>() {
-			@Override
-			public void onSuccess(Void var1) {
-                		//初始化成功后调用 quicklogin 实现静默登录
-				ZAWSDK.getInstance().quickLogin(MainActivity.this, new ResultCallback<LoginModel>() {
-					@Override
-					public void onSuccess(LoginModel var1) {
-						Log.v("SDK", "登录成功");
-						Log.v("SDK", "token" + var1.getToken());
-					}
-
-					@Override
-					public void onFailure(int code, String var1) {
-						Log.i("SDK", "登录失败");
-					}
-				});
-			}
-
-			@Override
-			public void onFailure(int code, String var1) {
-				Log.v("SDK", "初始化失败");
-			}
-		});
-```
 #### 如何自定义application
 创建类`GlobalApplication`继承`Application`, 实现它的`onCreate`方法
 ```java
