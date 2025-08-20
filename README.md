@@ -93,6 +93,15 @@ dependencyResolutionManagement {
         ]
     }
 ```
+demo
+```groovy
+manifestPlaceholders = [
+                "VKIDClientID" : "111111",
+                "VKIDRedirectHost" : "vk.com",
+                "VKIDClientSecret" : "UHdfefdee783e7e",
+                "VKIDRedirectScheme" : "vk111111"
+        ]
+```
 在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
 ```
     implementation 'com.zawsdk:zawsdk_vk_android:0.6.3'
