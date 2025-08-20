@@ -215,19 +215,17 @@ if (hasLogin){
 ```
 只有bindType是0且loginType是4的情况需要绑定
 ```
-###### 登录绑定回调
+###### 登录回调
 ```java
 public class LoginModel {
     private String uid;
     private String token;
-    private int loginType;//账户首次登录类型
-    private int bindType;//账户绑定类型
+    private int loginType;
 
-    LoginModel(String uid, String token, int loginType, int bindType) {
+    LoginModel(String uid, String token, int loginType) {
         this.uid = uid;
         this.token = token;
         this.loginType = loginType;
-        this.bindType = bindType;
     }
 
     public String getUid() {
@@ -240,10 +238,6 @@ public class LoginModel {
 
     public int getLoginType() {
         return loginType;
-    }
-
-    public int getBindType() {
-        return bindType;
     }
 }
 ```
