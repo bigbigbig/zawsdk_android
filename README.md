@@ -117,6 +117,7 @@ pluginManagement {
         gradlePluginPortal()
         maven {
             url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
+//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
         }
     }
 }
@@ -127,6 +128,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven {
             url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
+//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
         }
     }
 }
