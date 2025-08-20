@@ -398,17 +398,7 @@ ZAWSDK.getInstance().logout(new ResultCallback<Void>() {
 #### 游客登录绑定
 ```java
 //如果用户使用的是游客登录，可使用这种方式将账号和三方登录绑定
-ZAWSDK.getInstance().bind(MainActivity.this, new ResultCallback<LoginModel>() {
-				@Override
-				public void onSuccess(LoginModel var1) {
-					Log.v("SDK", "绑定成功");
-				}
-
-				@Override
-				public void onFailure(int code, String var1) {
-					Log.v("SDK", "绑定失败");
-				}
-			});
+ZAWSDK.getInstance().bind(MainActivity.this, nil);
 ```
 
 #### 上传角色信息
