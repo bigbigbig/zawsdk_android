@@ -49,6 +49,55 @@ android:exported="true"/>
 ```xml
 <queries><provider android:authorities="com.facebook.katana.provider.PlatformProvider" /></queries>
 ```
+#### VK配置(可选)
+如果项目中需要接入 vk 登录，则进行如下操作
+在 根目录`setting.gradle`文件中添加vk maven 源
+```groovy
+luginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven{url "https://artifactory-external.vkpartner.ru/artifactory/vkid-sdk-android/"}
+        maven{url "https://artifactory-external.vkpartner.ru/artifactory/maven/"}
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "https://artifactory-external.vkpartner.ru/artifactory/vkid-sdk-android/"
+        }
+        maven {
+            url "https://artifactory-external.vkpartner.ru/artifactory/maven/"
+        }
+        maven {
+            url "https://artifactory-external.vkpartner.ru/artifactory/vk-id-captcha/android/"
+        }
+    }
+}
+```
+添加 vk id 参数
+在 app/build.gradle 中添加如下vk 配置
+```groovy
+    defaultConfig {
+        ...
+
+        manifestPlaceholders = [
+                "VKIDClientID" : "{vk_app_id}",
+                "VKIDRedirectHost" : "vk.com",
+                "VKIDClientSecret" : "{vk_secure_secret}",
+                "VKIDRedirectScheme" : "vk{vk_app_id}"
+        ]
+    }
+```
+在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
+```
+    implementation 'com.zawsdk:zawsdk_vk_android:0.6.3'
+```
+
 #### sdk安装 
 在 根目录`setting.gradle` 文件中添加 maven 源
 ```groovy
