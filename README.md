@@ -2,7 +2,140 @@
 [![Latest release](https://img.shields.io/github/v/release/bigbigbig/zawsdk_android)](https://github.com/bigbigbig/zawsdk_android/releases/latest)
 
 ## Install sdk
-#### google配置
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+#### 主 sdk 安装
+在 根目录`setting.gradle` 文件中添加 maven 源
+```groovy
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
+//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
+        }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
+//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
+        }
+    }
+}
+```
+在 `app` module 下的 `build.gradle` 中添加sdk依赖
+```groovy
+//latest_release 替换为Readme顶部的版本号，不用带字母v
+dependencies {
+    implementation 'com.zawsdk:zawsdk_android:latest_release'
+}
+
+```
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+#### 混淆规则
+```groovy
+-keep class com.adjust.sdk.** { *; }
+-keep class com.google.android.gms.common.ConnectionResult {
+   int SUCCESS;
+}
+-keep class com.google.android.gms.ads.identifier.AdvertisingIdClient {
+   com.google.android.gms.ads.identifier.AdvertisingIdClient$Info getAdvertisingIdInfo(android.content.Context);
+}
+-keep class com.google.android.gms.ads.identifier.AdvertisingIdClient$Info {
+   java.lang.String getId();
+   boolean isLimitAdTrackingEnabled();
+}
+-keep public class com.android.installreferrer.** { *; }
+```
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️<br>
+=====================注意看=======================<br>
+版本 ⭐️0.6.6(包含)以后⭐️需要在 app/build.gradle 中添加如下参数配置
+```groovy
+    defaultConfig {
+        ...
+
+        manifestPlaceholders = [
+                "ZAWSDKAppId" : "x",
+                "ZAWSDKAppKey" : "xxxxxxxxxxxxxxx",
+                "ZAWSDKChannelId" : "xxxxx",
+                "ZAWSDKMmpToken" : "xxxxxxxxxx",
+                "ZAWSDKPolicyUrl" : "https://xxxxxxxx",
+
+
+                //如果接入facebook 登录，请添加以下参数
+
+                "ZAWFacebookAppId" : "xxxxxxxxxxxx",
+                "ZAWFacebookClientToken" : "xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "ZAWFacebookLoginProtocolScheme" : "xxxxxxxxxx",
+
+
+                //如果用来上架 Google Play，请添加以下参数
+
+                "ZAWGPWebClientId" : "xxxxxxxxxx-xxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
+
+
+                //如果需要接入vk 登录，请添加以下参数
+
+                "VKIDClientID" : "xxxxxxx",
+                "VKIDRedirectHost" : "vk.com",
+                "VKIDClientSecret" : "xxxxxxxxxxxxxxxxxxxx",
+                "VKIDRedirectScheme" : "vkxxxxxxx,
+
+
+                //如果用来上架 RuStore，请添加以下参数
+
+                "RUSTOREConsoleAppIdValue" : "xxx.xxxxxxxxxxx",
+                "RUSTOREPaySchemeValue" : "xxxxxxxxxxxx"
+        ]
+    }
+```
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+#### SDK初始化
+版本 ⭐️0.6.6(包含)以后⭐️在自定义的 application 的 onCreate 方法中调用 sdk 的 init 方法
+```java
+public class GlobalApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ZAWSDK.getInstance().init(this);
+    }
+}
+```
+=====================分割线=======================<br>
+针对 ⭐️0.6.6之前⭐️版本需要如下初始化：<br>
+>在自定义的 application 的 onCreate 方法中调用 sdk 的 onCreate 方法
+>```java
+>ZAWSDK.getInstance().onCreate(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, mmp_key, Google登录的webClientId);
+>```
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+#### 如何自定义application
+创建类`GlobalApplication`继承`Application`, 实现它的`onCreate`方法
+```java
+public class GlobalApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+		...
+    }
+}
+```
+在 `app/src/main/AndroidManifest.xml` 文件中 找到 `<application` 标签
+在标签下添加 `android:name`属性，设置属性值为`xxx.xxx.xxx.xxx.GlobalApplication`,其中`xxx.xxx.xxx.xxx`为类`GlobalApplication`所属的包名
+```xml
+ <application
+        android:name="xxx.xxx.xxx.xxx.GlobalApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+```
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+#### google配置(可选)
 在 `app` module 下 引入 `google-services.json` 文件<br><br>
 在 根目录 `build.gradle` 文件中声明 plugin
 ```groovy
@@ -16,39 +149,52 @@ plugins {
     id 'com.google.gms.google-services'
 }
 ```
-#### Facebook配置
-在 `app` module `AndroidManifest.xml` 文件中添加 Facebook 参数
-```xml
-<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+版本  ⭐️0.6.6(包含)以后⭐️需要
+在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
+```groovy
+implementation 'com.zawsdk:zawsdk_gp_android:0.6.6'
 ```
-在 `application` 元素中，为 Facebook 添加活动，并为 Chrome 自定义选项卡添加活动和意向筛选条件
-```xml
-<activity android:name="com.facebook.FacebookActivity"
-android:configChanges=
-	"keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-android:label="@string/app_name" />
-<activity
-android:name="com.facebook.CustomTabActivity"
-android:exported="true">
-<intent-filter>
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data android:scheme="@string/fb_login_protocol_scheme" />
-</intent-filter>
-</activity>
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+#### Facebook配置(可选)
+版本 ⭐️0.6.6(包含)以后⭐️只需要在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
+```groovy
+implementation 'com.zawsdk:zawsdk_fb_android:0.6.6'
 ```
-将 ContentProvider 添加至 AndroidManifest.xml 文件，并将 {APP_ID} 设置为您的应用编号
-```xml
-<provider android:authorities="com.facebook.app.FacebookContentProvider{APP_ID}"
-android:name="com.facebook.FacebookContentProvider"
-android:exported="true"/>
-```
-如果您的应用程序面向 Android 11 或更高版本，请向 AndroidManifest.xml 文件添加以下查询块，以使 Facebook 应用对您的应用可见：
-```xml
-<queries><provider android:authorities="com.facebook.katana.provider.PlatformProvider" /></queries>
-```
+=====================分割线=======================<br>
+针对 ⭐️0.6.6之前⭐️版本需要如下配置：<br>
+>在 `app` module `AndroidManifest.xml` 文件中添加 Facebook 参数
+>```xml
+><meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+><meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+>```
+>在 `application` 元素中，为 Facebook 添加活动，并为 Chrome 自定义选项卡添加活动和意向筛选条件
+>```xml
+><activity android:name="com.facebook.FacebookActivity"
+>android:configChanges=
+>	"keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+>android:label="@string/app_name" />
+><activity
+>android:name="com.facebook.CustomTabActivity"
+>android:exported="true">
+><intent-filter>
+>    <action android:name="android.intent.action.VIEW" />
+>    <category android:name="android.intent.category.DEFAULT" />
+>    <category android:name="android.intent.category.BROWSABLE" />
+>    <data android:scheme="@string/fb_login_protocol_scheme" />
+></intent-filter>
+></activity>
+>```
+>将 ContentProvider 添加至 AndroidManifest.xml 文件，并将 {APP_ID} 设置为您的应用编号
+>```xml
+><provider android:authorities="com.facebook.app.FacebookContentProvider{APP_ID}"
+>android:name="com.facebook.FacebookContentProvider"
+>android:exported="true"/>
+>```
+>如果您的应用程序面向 Android 11 或更高版本，请向 AndroidManifest.xml 文件添加以下查询块，以使 Facebook 应用对您的应用可见：
+>```xml
+><queries><provider android:authorities="com.facebook.katana.provider.PlatformProvider" /></queries>
+>```
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 #### VK配置(可选)
 如果项目中需要接入 vk 登录，则进行如下操作
 在 根目录`setting.gradle`文件中添加vk maven 源
@@ -108,60 +254,17 @@ manifestPlaceholders = [
         ]
 ```
 在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
+```groovy
+coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+implementation 'com.zawsdk:zawsdk_vk_android:0.6.3'
 ```
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
-    implementation 'com.zawsdk:zawsdk_vk_android:0.6.3'
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+#### RUSTORE配置(可选)
+在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
+```groovy
+implementation 'com.zawsdk:zawsdk_rustore_android:0.6.6'
 ```
 
-#### sdk安装 
-在 根目录`setting.gradle` 文件中添加 maven 源
-```groovy
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-        maven {
-            url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
-//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
-        }
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
-//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
-        }
-    }
-}
-```
-在 `app` module 下的 `build.gradle` 中添加sdk依赖
-```groovy
-//latest_release 替换为Readme顶部的版本号，不用带字母v
-dependencies {
-    implementation 'com.zawsdk:zawsdk_android:latest_release'
-}
-
-```
-#### 混淆规则
-```
--keep class com.adjust.sdk.** { *; }
--keep class com.google.android.gms.common.ConnectionResult {
-   int SUCCESS;
-}
--keep class com.google.android.gms.ads.identifier.AdvertisingIdClient {
-   com.google.android.gms.ads.identifier.AdvertisingIdClient$Info getAdvertisingIdInfo(android.content.Context);
-}
--keep class com.google.android.gms.ads.identifier.AdvertisingIdClient$Info {
-   java.lang.String getId();
-   boolean isLimitAdTrackingEnabled();
-}
--keep public class com.android.installreferrer.** { *; }
-```
 ## 关于登录的说明
 #### 登录方式的枚举值
 ```java
@@ -209,7 +312,7 @@ if (hasLogin){
 	});
 }
 ```
-# sdk 使用
+# sdk 接口和数据结构寿命
 #### 主要数据结构说明
 ###### 登录类型
 ```java
@@ -296,40 +399,6 @@ public class PayModel {
                 data);
     }
 ```
-#### 初始化
-在自定义的 application 的 onCreate 方法中调用 sdk 的 onCreate 方法
-```java
-ZAWSDK.getInstance().onCreate(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, mmp_key, Google登录的webClientId);
-```
-#### 如何自定义application
-创建类`GlobalApplication`继承`Application`, 实现它的`onCreate`方法
-```java
-public class GlobalApplication extends Application {
-
-    private String appid = "x";
-    private String appkey = "xxxxxxxxxxxxx";
-    private String channel = "xxxxx";
-    private String mmp_key = "xxxxxxxxxxx";
-    private String policy_url = "https://xxxx.com";
-    private String google_web_client_id = "xxxxxxxxx-xxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com";
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        ZAWSDK.getInstance().onCreate(this, channel, appid, appkey, policy_url, mmp_key, google_web_client_id);
-    }
-}
-```
-在 `app/src/main/AndroidManifest.xml` 文件中 找到 `<application` 标签
-在标签下添加 `android:name`属性，设置属性值为`xxx.xxx.xxx.xxx.GlobalApplication`,其中`xxx.xxx.xxx.xxx`为类`GlobalApplication`所属的包名
-```xml
- <application
-        android:name="xxx.xxx.xxx.xxx.GlobalApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-```
-
-
 
 #### 快速登录
 ```java
