@@ -108,7 +108,7 @@ public class GlobalApplication extends Application {
 }
 ```
 =====================分割线=======================<br>
-针对 ⭐️0.6.6之前⭐️版本需要如下初始化：<br>
+>针对 ⭐️0.6.6之前⭐️版本需要如下初始化：<br>
 >在自定义的 application 的 onCreate 方法中调用 sdk 的 onCreate 方法
 >```java
 >ZAWSDK.getInstance().onCreate(this, 渠道号, 项目 id, 授权 key, 你的隐私协议, mmp_key, Google登录的webClientId);
@@ -161,7 +161,7 @@ implementation 'com.zawsdk:zawsdk_gp_android:0.6.6'
 implementation 'com.zawsdk:zawsdk_fb_android:0.6.6'
 ```
 =====================分割线=======================<br>
-针对 ⭐️0.6.6之前⭐️版本需要如下配置：<br>
+>针对 ⭐️0.6.6之前⭐️版本需要如下配置：<br>
 >在 `app` module `AndroidManifest.xml` 文件中添加 Facebook 参数
 >```xml
 ><meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
@@ -312,7 +312,7 @@ if (hasLogin){
 	});
 }
 ```
-# sdk 接口和数据结构寿命
+# sdk 接口和数据结构
 #### 主要数据结构说明
 ###### 登录类型
 ```java
@@ -520,16 +520,21 @@ ZAWSDK.getInstance().adLogEvent("xxx");
 //充值事件 cp 不需上报，此接口仅为预留
 ZAWSDK.getInstance().adLogRevenueEvent("xxx", 1.0, "USD");
 ```
-###### Appsflyer
-> 版本0.3.9开始不再使用Appsflyer
-```java
-Map<String, Object> eventValues = new HashMap<String, Object>();
-eventValues.put(AFInAppEventParameterName.PRICE, 1234.56);
-eventValues.put(AFInAppEventParameterName.CONTENT_ID,"1234567");
-ZAWSDK.getInstance().afLogEvent(this, "xxx", eventValues);
-```
+>###### Appsflyer
+>> 版本0.3.9开始不再使用Appsflyer
+>```java
+>Map<String, Object> eventValues = new HashMap<String, Object>();
+>eventValues.put(AFInAppEventParameterName.PRICE, 1234.56);
+>eventValues.put(AFInAppEventParameterName.CONTENT_ID,"1234567");
+>ZAWSDK.getInstance().afLogEvent(this, "xxx", eventValues);
+>```
 
 #### facebook 分享
+版本 0.6.6(包含)以后
 ```java
-ZAWSDK.shareFacebook(this, null, "xxx");
+ZAWFBImpl.shareFacebook(this, "quote", "link");
 ```
+>版本 0.6.6以前
+>```java
+>ZAWSDK.shareFacebook(this, null, "xxx");
+>```
