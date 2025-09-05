@@ -259,7 +259,7 @@ coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 implementation 'com.zawsdk:zawsdk_vk_android:0.6.3'
 ```
 ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
-#### RUSTORE配置(可选)
+#### RUSTORE配置(可选)(Google 和 RUSTORE 不要同时引入)
 在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
 ```groovy
 implementation 'com.zawsdk:zawsdk_rustore_android:0.6.6'
