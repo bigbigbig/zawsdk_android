@@ -18,15 +18,18 @@
     </dependency>
     <dependency>
       <groupId>ru.rustore.sdk</groupId>
-      <artifactId>bom</artifactId>
-      <version>2025.08.01</version>
-    </dependency>
-    <dependency>
-      <groupId>ru.rustore.sdk</groupId>
       <artifactId>pay</artifactId>
     </dependency>
   </dependencies>
   <dependencyManagement>
-    <dependencies/>
+    <dependencies>
+      <dependency>
+        <groupId>ru.rustore.sdk</groupId>
+        <artifactId>bom</artifactId>
+        <version>2025.08.01</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
   </dependencyManagement>
 </project>
