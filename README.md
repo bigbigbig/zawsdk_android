@@ -54,6 +54,11 @@ dependencies {
    boolean isLimitAdTrackingEnabled();
 }
 -keep public class com.android.installreferrer.** { *; }
+
+-keep class com.zawsdk.gp.** { *; }
+-keep class com.zawsdk.vk.** { *; }
+-keep class com.zawsdk.fb.** { *; }
+-keep class com.zawsdk.rustore.** { *; }
 ```
 ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️<br>
 =====================注意看=======================<br>
