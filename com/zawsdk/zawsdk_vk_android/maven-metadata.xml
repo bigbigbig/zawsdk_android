@@ -3,14 +3,15 @@
   <groupId>com.zawsdk</groupId>
   <artifactId>zawsdk_vk_android</artifactId>
   <versioning>
-    <latest>0.6.8</latest>
-    <release>0.6.8</release>
+    <latest>0.7.0</latest>
+    <release>0.7.0</release>
     <versions>
       <version>0.6.3</version>
       <version>0.6.4</version>
       <version>0.6.6</version>
       <version>0.6.8</version>
+      <version>0.7.0</version>
     </versions>
-    <lastUpdated>20250912110040</lastUpdated>
+    <lastUpdated>20251014031621</lastUpdated>
   </versioning>
 </metadata>
