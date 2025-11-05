@@ -274,7 +274,51 @@ implementation 'com.zawsdk:zawsdk_rustore_android:0.6.6'
 
 ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 #### HUAWEI配置(可选)(Google 和 RUSTORE 和 HUAWEI 不要同时引入)
-版本 0.7.2 开始支持华为组件
+版本 0.7.2 开始支持华为组件<br/>
+如果项目中需要接入 HUAWEI，则进行如下操作 在 根目录setting.gradle文件中添加huawei maven 源
+```
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
+//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
+        }
+        // 配置HMS Core SDK的Maven仓地址。
+        maven { url 'https://developer.huawei.com/repo/' }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
+//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
+        }
+        // 配置HMS Core SDK的Maven仓地址。
+        maven { url 'https://developer.huawei.com/repo/' }
+    }
+}
+```
+在根目录 build.gradle 中添加华为插件依赖
+```
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.0'
+        classpath 'com.huawei.agconnect:agcp:1.9.3.302'
+    }
+}
+plugins {
+    id 'com.android.application' version '8.2.0' apply false
+    id 'com.android.library' version '8.2.0' apply false
+}
+```
+注意：华为插件必须显示声明com.android.tools.build:gradle，否则华为无法检测到gradle版本，导致报错<br/>
+
 在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
 ```groovy
 implementation 'com.zawsdk:zawsdk_hw_android:0.7.2'
@@ -282,6 +326,17 @@ implementation 'com.zawsdk:zawsdk_hw_android:0.7.2'
 在 app/build.gradle 最下方加入如下代码
 ```groovy
 apply plugin: 'com.huawei.agconnect'
+```
+在 app/build.gradle 声明参数中添加华为公钥
+```groovy
+    defaultConfig {
+        ...
+
+        manifestPlaceholders = [
+                "HUAWEIPUBLICKEY" : "{hw_public_key}",
+                
+        ]
+    }
 ```
 
 
