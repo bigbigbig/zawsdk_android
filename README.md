@@ -95,10 +95,10 @@ dependencies {
                 "VKIDRedirectScheme" : "vkxxxxxxx,
 
 
-                //如果用来上架 RuStore，请添加以下参数
+                //如果用来上架 ，请添加以下参数
 
-                "RUSTOREConsoleAppIdValue" : "xxx.xxxxxxxxxxx",
-                "RUSTOREPaySchemeValue" : "xxxxxxxxxxxx"
+                "ConsoleAppIdValue" : "xxx.xxxxxxxxxxx",
+                "PaySchemeValue" : "xxxxxxxxxxxx"
         ]
     }
 ```
@@ -266,11 +266,24 @@ coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 implementation 'com.zawsdk:zawsdk_vk_android:0.6.3'
 ```
 ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
-#### RUSTORE配置(可选)(Google 和 RUSTORE 不要同时引入)
+#### RUSTORE配置(可选)(Google 和 RUSTORE 和 HUAWEI 不要同时引入)
 在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
 ```groovy
 implementation 'com.zawsdk:zawsdk_rustore_android:0.6.6'
 ```
+
+⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+#### HUAWEI配置(可选)(Google 和 RUSTORE 和 HUAWEI 不要同时引入)
+版本 0.7.2 开始支持华为组件
+在 app/build.gradle 中添加如下依赖, 版本号和主 sdk 版本号保持一致
+```groovy
+implementation 'com.zawsdk:zawsdk_hw_android:0.7.2'
+```
+在 app/build.gradle 最下方加入如下代码
+```groovy
+apply plugin: 'com.huawei.agconnect'
+```
+
 
 ## 关于登录的说明
 #### 登录方式的枚举值
