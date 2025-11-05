@@ -59,6 +59,17 @@ dependencies {
 -keep class com.zawsdk.vk.** { *; }
 -keep class com.zawsdk.fb.** { *; }
 -keep class com.zawsdk.rustore.** { *; }
+-keep class com.zawsdk.hw.** { *; }
+
+-ignorewarnings
+-keepattributes *Annotation*
+-keepattributes Exceptions
+-keepattributes InnerClasses
+-keepattributes Signature
+-keepattributes SourceFile,LineNumberTable
+-keep class com.huawei.hianalytics.**{*;}
+-keep class com.huawei.updatesdk.**{*;}
+-keep class com.huawei.hms.**{*;}
 ```
 ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️<br>
 =====================注意看=======================<br>
@@ -72,6 +83,7 @@ dependencies {
                 "ZAWSDKAppKey" : "xxxxxxxxxxxxxxx",
                 "ZAWSDKChannelId" : "xxxxx",
                 "ZAWSDKMmpToken" : "xxxxxxxxxx",
+                "ZAWSDKLANDSCAPE" : "0",//强制横屏 0竖屏 1横屏
                 "ZAWSDKPolicyUrl" : "https://xxxxxxxx",
 
 
@@ -95,10 +107,14 @@ dependencies {
                 "VKIDRedirectScheme" : "vkxxxxxxx,
 
 
-                //如果用来上架 ，请添加以下参数
+                //如果用来上架 RuStore，请添加以下参数
 
                 "ConsoleAppIdValue" : "xxx.xxxxxxxxxxx",
-                "PaySchemeValue" : "xxxxxxxxxxxx"
+                "PaySchemeValue" : "xxxxxxxxxxxx",
+
+				//上架华为需要添加以下参数
+                "HUAWEIPUBLICKEY" : "xxxxxxxxxxxx"
+        
         ]
     }
 ```
