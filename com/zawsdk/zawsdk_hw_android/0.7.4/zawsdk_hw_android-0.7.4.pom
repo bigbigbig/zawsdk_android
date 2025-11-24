@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.zawsdk</groupId>
+  <artifactId>zawsdk_hw_android</artifactId>
+  <version>0.7.4</version>
+  <packaging>aar</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>androidx.appcompat</groupId>
+      <artifactId>appcompat</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.agconnect</groupId>
+      <artifactId>agconnect-core</artifactId>
+      <version>1.9.3.302</version>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.hms</groupId>
+      <artifactId>hwid</artifactId>
+      <version>6.12.0.300</version>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.hms</groupId>
+      <artifactId>iap</artifactId>
+      <version>6.13.0.300</version>
+    </dependency>
+    <dependency>
+      <groupId>com.zawsdk</groupId>
+      <artifactId>zawsdk_android</artifactId>
+      <version>0.7.4</version>
+    </dependency>
+  </dependencies>
+  <dependencyManagement>
+    <dependencies/>
+  </dependencyManagement>
+</project>
