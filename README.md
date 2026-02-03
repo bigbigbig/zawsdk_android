@@ -14,7 +14,7 @@ pluginManagement {
         maven {
             url "https://raw.githubusercontent.com/bigbigbig/zawsdk_android/main"
 // 国内推荐使用 gitee 源
-//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/tree/main"
+//            url "https://gitee.com/zhangmingsheng_1992/zawsdk_android2/raw/main"
         }
     }
 }
