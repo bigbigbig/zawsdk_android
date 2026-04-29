@@ -24,7 +24,7 @@
     <dependency>
       <groupId>com.zawsdk</groupId>
       <artifactId>zawsdk_android</artifactId>
-      <version>0.7.7</version>
+      <version>0.7.8</version>
     </dependency>
   </dependencies>
   <dependencyManagement>
