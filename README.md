@@ -629,3 +629,96 @@ ZAWFBImpl.shareFacebook(this, "quote", "link");
 >```java
 >ZAWSDK.shareFacebook(this, null, "xxx");
 >```
+
+#### LDPlayer渠道包
+如果接入 LDPlayer 渠道，需要
+在 `app` module 下的 `build.gradle` 中额外添加sdk依赖
+```groovy
+//latest_release 替换为Readme顶部的版本号，不用带字母v
+dependencies {
+    implementation 'com.zawsdk:zawsdk_ld_android:latest_release'
+}
+
+```
+在settings.gradle 添加如下依赖
+```groovy
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        .....
+        ...
+        maven {
+            credentials {
+                username '6445f183daafbed659eb2c18'
+                password 'oWuvewt2tR1A'
+            }
+            url 'https://packages.aliyun.com/5f05a0346207a1a8b17f4aaf/maven/cz-public-repo'
+        }
+      ...
+```
+在manifestPlaceholders参数中，添加 LDPlayer 的渠道参数
+```groovy
+manifestPlaceholders = [
+                ......
+                ....
+                ...
+                ..
+
+                "LD_APP_ID" : "xxxx",
+                "LD_APP_KEY": "xxxxxxxxxx",
+                "LD_CHANNEL_ID": "xxxx",
+                "LD_SUN_CHANNEL_ID": "xxx"
+        ]
+```
+
+LD 渠道需要对初始化流程进行微调
+在 MainActivity 中，执行 quicklogin 前需要执行 initLD
+```java
+ZAWSDK.getInstance().initLD(this, new ResultCallback<Void>() {
+			@Override
+			public void onSuccess(Void var1) {
+				Log.v("ReflectionTrace", "LD初始化成功");
+				ZAWSDK.getInstance().quickLogin(MainActivity.this, new ResultCallback<LoginModel>() {
+					@Override
+					public void onSuccess(LoginModel var1) {
+						Log.v("ReflectionTrace", "登录成功");
+//						Log.v("SDK", "token" + var1.getToken());
+					}
+
+					@Override
+					public void onFailure(int code, String var1) {
+						if (code == 21){
+							Log.i("ReflectionTrace", "登录取消");
+						} else {
+							Log.i("ReflectionTrace", "登录失败");
+						}
+					}
+				});
+			}
+
+			@Override
+			public void onFailure(int code, String var1) {
+				Log.v("ReflectionTrace", "LD初始化失败");
+			}
+		});
+```
+在 MainActivity 的生命周期方法中，需要传递给 LD
+```java
+@Override
+	protected void onResume() {
+		super.onResume();
+		ZAWSDK.getInstance().onResumeLD(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		ZAWSDK.getInstance().onPauseLD(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ZAWSDK.getInstance().onDestroyLD(this);
+	}
+```
